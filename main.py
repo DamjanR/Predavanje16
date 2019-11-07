@@ -1,5 +1,5 @@
 # import Flask knjižnico
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 # kliče glavno datoteko
 app = Flask(__name__)
@@ -8,6 +8,17 @@ app = Flask(__name__)
 @app.route("/")
 def prva_stran():
     return render_template("prva_stran.html")
+
+@app.route("/poslji-sporocilo", methods=["post"])
+def poslji_sporocilo():
+    zadeva = request.form.get("zadeva")
+    sporocilo = request.form.get("sporocilo")
+
+    # tukaj bi shranili te spremenljivke v bazo.
+
+    print ("zadeva je: " + zadeva)
+#    print ("sporočilo je: " + sporocilo)
+    return "Hvala za poslano zadevo: " + zadeva
 
 # pot do datoteke kontaktov
 @app.route("/kontakt")
