@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5f1fe7d1-7422-4cd2-83fc-ca01118d8d4a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/ZAD1.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/sporocilo_poslano.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/zad.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,6 +32,12 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../HW15" />
     <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.web.browsers" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\DAMJAN\Users\Smartninja\WEB1\predavanje16\templates" />
+      <recent name="C:\DAMJAN\Users\Smartninja\WEB1\predavanje16\sporocilo_poslano.html" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">

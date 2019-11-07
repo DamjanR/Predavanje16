@@ -16,9 +16,11 @@ def poslji_sporocilo():
 
     # tukaj bi shranili te spremenljivke v bazo.
 
-    print ("zadeva je: " + zadeva)
+#    print ("zadeva je: " + zadeva)
 #    print ("sporočilo je: " + sporocilo)
-    return "Hvala za poslano zadevo: " + zadeva
+#    return "Hvala za poslano zadevo: " + zadeva
+    return render_template("sporocilo_poslano.html", zadeva=zadeva)
+
 
 # pot do datoteke kontaktov
 @app.route("/kontakt")
