@@ -1,0 +1,16 @@
+<!-- Spodnja funkcija kliče "kodo" za glavo iz osnova.html -->
+{% extends "osnova.html" %}
+
+<!-- Spodnja funkcija je za vsebino, ki se razlikuje od osnova.html -->
+{% block vsebina %}
+    <h1>Kontakt</h1>
+
+    <h2>Moji emaili so:</h2>
+
+    <!-- Spodnja funkcija je FOR zanka v HTMLju -->
+    {% for email in emaili %}
+        <p><a href="mailto://{{ email }}">{{ email }}</a></p>
+    {% endfor %}
+
+<!-- Spodnja funkcija kliče "kodo" za nogo iz osnova.html -->
+{% endblock %}
