@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5f1fe7d1-7422-4cd2-83fc-ca01118d8d4a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ZAD1.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/sporocilo_poslano.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/zad.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZAD1.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/prva_stran.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/prva_stran.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/sporocilo_poslano.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/sporocilo_poslano.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,7 +30,7 @@
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../HW15" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.web.browsers" />
   </component>
   <component name="RecentsManager">
@@ -97,7 +97,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

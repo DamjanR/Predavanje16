@@ -4,5 +4,23 @@
 <!-- Spodnja funkcija je za vsebino, ki se razlikuje od osnova.html -->
 {% block vsebina %}
 <h1>Dobrodošli na moji spletni strani</h1>
+
+<!-- Spodnja funkcije je of JINJO funkcija if ki jo kličemo iz main.py ime=ime -->
+{% if ime %}
+
+    <p>Prijavljen si  pod imenom {{ ime }}</p>
+
+{% else %}
+
+
+<!-- 11.nov 2019 -18- -->
+    <p>Prijavi se:</p>
+    <form method="POST" action="/prijava">
+        <input name="ime" placeholder="Tvoje ime">
+        <button type="submit">Prijava</button>
+    </form>
+
+{% endif %}
+
 <!-- Spodnja funkcija kliče "kodo" za nogo iz osnova.html -->
 {% endblock %}
