@@ -36,6 +36,17 @@ def prijava():
 #1    return redirect("https://www.smartninja.org/student/forum/course/5766390329901056/topic/5734963441827840")
 #1    return "Testni izpis prijave"
 
+@app.route("/komentar", methods=["POST"])
+def poslji_komentar():
+    # jemle vsebino iz prve strani  to je  <form method="POST" action="/komentar">
+    #                                           <input name="vsebina" placeholder="Vpisi komentar">
+        vsebina_komentarja = request.form.get("vsebina")
+
+    # Tukaj se bo shranil komentar v podatkovno bazo
+
+    # vrne nas na to stran spodaj / !!!
+    return redirect("/")
+
 
 # pot do datoteke kontaktov
 @app.route("/kontakt")
