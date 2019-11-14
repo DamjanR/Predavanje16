@@ -15,7 +15,12 @@
         <button type="submit">Pošlji</button>
     </form>
 
-{% else %}
+    <h2>Komentarji</h2>
+    {% for komentar in komentarji %}
+    <p><strong>{{ komentar.avtor }}:</strong> {{ komentar.vsebina }}</p>
+    {% endfor %}
+
+    {% else %}
 
 
 <!-- 11.nov 2019 -18- -->

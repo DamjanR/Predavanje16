@@ -1,15 +1,20 @@
 # import Flask knjižnico
 from flask import Flask, render_template, request, redirect, make_response
+from modeli import Komentar, db
 
 # kliče glavno datoteko
 app = Flask(__name__)
+db.create_all()
 
 # pot za prvo stran
 @app.route("/")
 def prva_stran():
     ime = request.cookies.get("ime")
 
-    return render_template("prva_stran.html", ime=ime)
+    # Preberemo vse komentarje
+    komentarji = db.query(Komentar).all()
+
+    return render_template("prva_stran.html", ime=ime, komentarji=komentarji)
 
 @app.route("/poslji-sporocilo", methods=["post"])
 def poslji_sporocilo():
@@ -40,11 +45,19 @@ def prijava():
 def poslji_komentar():
     # jemle vsebino iz prve strani  to je  <form method="POST" action="/komentar">
     #                                           <input name="vsebina" placeholder="Vpisi komentar">
-        vsebina_komentarja = request.form.get("vsebina")
+    vsebina_komentarja = request.form.get("vsebina")
 
     # Tukaj se bo shranil komentar v podatkovno bazo
 
-    # vrne nas na to stran spodaj / !!!
+    # zlomljena vrstica, ki je v eni vrsti predolga...
+    komentar = Komentar(
+        avtor=request.cookies.get("ime"),
+        vsebina=vsebina_komentarja
+    )
+    db.add(komentar)
+
+    db.commit()
+
     return redirect("/")
 
 
@@ -58,6 +71,10 @@ def kontakt():
 @app.route("/o meni")
 def o_meni():
     return render_template("o meni.html")
+
+@app.route("/skrito_stevilo")
+def skrito_stevilo():
+    return render_template("skrito_stevilo.html")
 
 
 # main + TAB je spodnja vrstica (komanda da program teče!)

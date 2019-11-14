@@ -1,2 +1,5 @@
 .idea/
 __pycache__/
+*.sqlite
+# ali pa vse sqlite datoteke, če jih je več!
+# podatkovna-baza.sqlite
