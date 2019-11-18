@@ -1,6 +1,9 @@
+
+import random
+import uuid
 # import Flask knjižnico
 from flask import Flask, render_template, request, redirect, make_response
-from modeli import Komentar, db
+from modeli import Komentar, db, Uporabnik
 
 # kliče glavno datoteko
 app = Flask(__name__)
@@ -9,12 +12,21 @@ db.create_all()
 # pot za prvo stran
 @app.route("/")
 def prva_stran():
-    ime = request.cookies.get("ime")
+    sejna_vrednost = request.cookies.get("sejna_vrednost")
+
+    uporabnik = db.query(Uporabnik).filter_by(sejna_vrednost=sejna_vrednost).first()
+    if uporabnik:
+        ime = uporabnik.ime
+    else:
+        ime = None
 
     # Preberemo vse komentarje
     komentarji = db.query(Komentar).all()
 
     return render_template("prva_stran.html", ime=ime, komentarji=komentarji)
+
+
+
 
 @app.route("/poslji-sporocilo", methods=["post"])
 def poslji_sporocilo():
@@ -34,24 +46,36 @@ def poslji_sporocilo():
 @app.route("/prijava", methods=["POST"])
 def prijava():
     ime = request.form.get("ime")
+
+    sejna_vrednost = str(uuid.uuid4())
+
+    uporabnik = db.query(Uporabnik).filter_by(sejna_vrednost=sejna_vrednost).first()
+    if not uporabnik:
+        uporabnik = Uporabnik(ime=ime, sejna_vrednost=sejna_vrednost)
+    else:
+        uporabnik.sejna_vrednost = sejna_vrednost
+
+    db.add(uporabnik)
+    db.commit()
+
+
+
+
     odgovor = make_response(redirect("/"))
-#1    print("prijava")
-    odgovor.set_cookie("ime", ime)
+    odgovor.set_cookie("sejna_vrednost", sejna_vrednost)
     return odgovor
 #1    return redirect("https://www.smartninja.org/student/forum/course/5766390329901056/topic/5734963441827840")
 #1    return "Testni izpis prijave"
 
 @app.route("/komentar", methods=["POST"])
 def poslji_komentar():
-    # jemle vsebino iz prve strani  to je  <form method="POST" action="/komentar">
-    #                                           <input name="vsebina" placeholder="Vpisi komentar">
     vsebina_komentarja = request.form.get("vsebina")
 
-    # Tukaj se bo shranil komentar v podatkovno bazo
+    sejna_vrednost = request.cookies.get("sejna_vrednost")
+    uporabnik = db.query(Uporabnik).filter_by(sejna_vrednost=sejna_vrednost).first()
 
-    # zlomljena vrstica, ki je v eni vrsti predolga...
     komentar = Komentar(
-        avtor=request.cookies.get("ime"),
+        avtor=uporabnik.ime,
         vsebina=vsebina_komentarja
     )
     db.add(komentar)
@@ -72,9 +96,26 @@ def kontakt():
 def o_meni():
     return render_template("o meni.html")
 
-@app.route("/skrito_stevilo")
+@app.route("/skrito-stevilo")
 def skrito_stevilo():
-    return render_template("skrito_stevilo.html")
+    odgovor = make_response(render_template("skrito_stevilo.html"))
+
+    if not request.cookies.get("skritoSteviloPiskot"):
+        stevilo = str(random.randint(1, 20))
+        odgovor.set_cookie("skritoSteviloPiskot", stevilo)
+
+    return odgovor
+
+@app.route("/poslji-skrito-stevilo", methods=["POST"])
+def poslji_skrito_stevilo():
+    skrito_stevilo = request.cookies.get("skritoSteviloPiskot")
+    vpisano_stevilo = request.form.get("stevilo")
+
+    if skrito_stevilo == vpisano_stevilo:
+        return "PRAVILNO"
+    else:
+        return "NI PRAVILNO"
+
 
 
 # main + TAB je spodnja vrstica (komanda da program teče!)
