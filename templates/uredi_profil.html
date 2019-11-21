@@ -1,0 +1,16 @@
+<!-- Spodnja funkcija kliče "kodo" za glavo iz osnova.html -->
+{% extends "osnova.html" %}
+
+<!-- Spodnja funkcija je za vsebino, ki se razlikuje od osnova.html -->
+{% block vsebina %}
+
+<h1>Uredi profil</h1>
+
+<form method="POST">
+    <p>Ime: <input name="ime" value="{{ uporabnik.ime }}"></p>
+    <p>Email: <input type="email" name="email" value="{{ uporabnik.email }}"></p>
+    <button type="submit">Shrani</button>
+</form>
+
+
+{% endblock %}
