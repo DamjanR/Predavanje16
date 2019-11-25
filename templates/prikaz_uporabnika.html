@@ -4,12 +4,9 @@
 <!-- Spodnja funkcija je za vsebino, ki se razlikuje od osnova.html -->
 {% block vsebina %}
 
-<h1>Uporabniki</h1>
+<h1>Prikaz uporabnika {{ uporabnik.id }}</h1>
 
-<ul>
-{% for uporabnik in uporabniki %}
-    <li><a href="/uporabniki/{{ uporabnik.id }}">{{ uporabnik.ime }}</a></li>
-{% endfor %}
-</ul>
+<p><strong>Ime: </strong> {{ uporabnik.ime }}</p>
+<p><strong>Email: </strong> {{ uporabnik.email }}</p>
 
 {% endblock %}
