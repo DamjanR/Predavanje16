@@ -1,5 +1,7 @@
 import hashlib
 import random
+import requests
+import json
 import uuid
 # import Flask knjižnico
 from flask import Flask, render_template, request, redirect, make_response
@@ -57,6 +59,9 @@ def prijava():
     if not uporabnik:
         uporabnik = Uporabnik(ime=ime, email="", geslo=geslo, sejna_vrednost=sejna_vrednost)
     else:
+        if uporabnik.je_blokiran:
+            return "Uporaba blokiran, prijava ni mogoča"
+
         if geslo == uporabnik.geslo:
             uporabnik.sejna_vrednost = sejna_vrednost
         else:
@@ -176,12 +181,36 @@ def uporabniki():
     return render_template("uporabniki.html", uporabniki=users)
 
 # <uporabnik_id> to kaže na cifro ID uporabnika to je dinamična 'stran'
-@app.route("/uporabniki/<uporabnik_id>")
+@app.route("/uporabniki/<uporabnik_id>", methods=["GET", "POST"])
 def prikaz_uporabnika(uporabnik_id):
     uporabnik = db.query(Uporabnik).filter_by(id=uporabnik_id).first()
+
+
+    if request.method == "POST":
+
+        blokiran = False
+        if request.form.get("je_blokiran") == "on":
+            blokiran = True
+        uporabnik.je_blokiran = blokiran
+        db.add(uporabnik)
+        db.commit()
+
     return render_template("prikaz_uporabnika.html", uporabnik=uporabnik)
 
+@app.route("/vreme")
+def vreme():
+    mesto = "Lendava"
+    odgovor_geo = json.loads(requests.get("https://geocode.xyz/" + mesto + "?json=1").text)
+    lon = odgovor_geo["longt"]
+    lat = odgovor_geo["latt"]
 
+# glej alternativne načine pri ROKU! glede url in spremenljivke lat in lon (zgoraj) !!!
+    url = "https://opendata.si/vreme/report/?lat=" + lat + "&lon=" + lon
+    odgovor = json.loads(requests.get(url).text)
+
+    dez = odgovor["forecast"]["data"][0]["rain"]
+
+    return render_template("vreme.html", vreme=dez)
 
 
 if __name__ == '__main__':
