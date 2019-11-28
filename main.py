@@ -199,18 +199,23 @@ def prikaz_uporabnika(uporabnik_id):
 
 @app.route("/vreme")
 def vreme():
-    mesto = "Lendava"
-    odgovor_geo = json.loads(requests.get("https://geocode.xyz/" + mesto + "?json=1").text)
-    lon = odgovor_geo["longt"]
-    lat = odgovor_geo["latt"]
+    mesto = request.args.get("lokacija")
+#    mesto = "Lendava"
 
-# glej alternativne načine pri ROKU! glede url in spremenljivke lat in lon (zgoraj) !!!
-    url = "https://opendata.si/vreme/report/?lat=" + lat + "&lon=" + lon
-    odgovor = json.loads(requests.get(url).text)
+    if mesto:
+        odgovor_geo = json.loads(requests.get("https://geocode.xyz/" + mesto + "?json=1").text)
+        lon = odgovor_geo["longt"]
+        lat = odgovor_geo["latt"]
 
-    dez = odgovor["forecast"]["data"][0]["rain"]
+        # glej alternativne načine pri ROKU! glede url in spremenljivke lat in lon (zgoraj) !!!
+        url = "https://opendata.si/vreme/report/?lat=" + lat + "&lon=" + lon
+        odgovor = json.loads(requests.get(url).text)
 
-    return render_template("vreme.html", vreme=dez)
+        dez = odgovor["forecast"]["data"][0]["rain"]
+    else:
+        dez = None
+
+    return render_template("vreme.html", vreme=dez, mesto=mesto)
 
 
 if __name__ == '__main__':
